@@ -1,0 +1,110 @@
+﻿@page
+@model MarketplaceApp2.Pages.Listings.IndexModel
+
+@{
+    ViewData["Title"] = "Listings";
+}
+
+<h1>Listings</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New Listing</a>
+</p>
+
+<div class="listings-grid">
+    @foreach (var listing in Model.Listing)
+    {
+        <div class="listing-card">
+            <div class="listing-image">
+                <img src="@listing.ImagePath" alt="@listing.Title" />
+            </div>
+            <div class="listing-details">
+                <h2>@listing.Title</h2>
+                <p><strong>Price:</strong> $@listing.Price</p>
+                <p><strong>Date Listed:</strong> @listing.DateListed.ToShortDateString()</p>
+                <p><strong>Description:</strong> @listing.Description</p>
+                <p><strong>Category:</strong> @listing.Category.Name</p>
+                <p><strong>Contact:</strong> @listing.UserEmailAddress</p>
+            </div>
+            <div class="listing-actions">
+                <a asp-page="./Edit" asp-route-id="@listing.Id" class="btn btn-secondary">Edit</a>
+                <a asp-page="./Details" asp-route-id="@listing.Id" class="btn btn-info">Details</a>
+                <a asp-page="./Delete" asp-route-id="@listing.Id" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .listings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .listing-card {
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .listing-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .listing-details {
+        padding: 15px;
+    }
+
+        .listing-details h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.25rem;
+        }
+
+        .listing-details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+    .listing-actions {
+        padding: 15px;
+        background-color: #f1f1f1;
+        text-align: center;
+    }
+
+        .listing-actions a {
+            margin: 0 5px;
+        }
+
+    .btn {
+        padding: 5px 10px;
+        kborder-radius: 5px;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .btn-info {
+        background-color: #17a2b8;
+        color: #fff;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+</style>
